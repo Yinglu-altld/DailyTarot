@@ -28,6 +28,28 @@ struct TarotSpreadCard: Codable, Hashable, Identifiable {
         case imageURL = "image_url"
     }
 
+    init(
+        position: String,
+        cardName: String,
+        cardShort: String,
+        orientation: String,
+        meaningUp: String,
+        meaningRev: String,
+        cardDescription: String,
+        displayMeaning: String,
+        imageURL: URL
+    ) {
+        self.position = position
+        self.cardName = cardName
+        self.cardShort = cardShort
+        self.orientation = orientation
+        self.meaningUp = meaningUp
+        self.meaningRev = meaningRev
+        self.cardDescription = cardDescription
+        self.displayMeaning = displayMeaning
+        self.imageURL = imageURL
+    }
+
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
 
@@ -92,6 +114,13 @@ struct TarotQuestionReading: Codable, Hashable {
         case cards
         case answer
     }
+
+    init(question: String, spreadType: String, cards: [TarotSpreadCard], answer: String) {
+        self.question = question
+        self.spreadType = spreadType
+        self.cards = cards
+        self.answer = answer
+    }
 }
 
 enum DailyTarotAPIError: LocalizedError {
@@ -135,18 +164,26 @@ struct DailyTarotClient {
     }
 
     func fetchDailyReading() async throws -> DailyTarotReading {
-        let request = try makeDailyRequest()
-        let (data, response) = try await session.data(for: request)
+        do {
+            let request = try makeDailyRequest()
+            let (data, response) = try await session.data(for: request)
 
-        guard let httpResponse = response as? HTTPURLResponse else {
-            throw DailyTarotAPIError.invalidResponse
+            guard let httpResponse = response as? HTTPURLResponse else {
+                throw DailyTarotAPIError.invalidResponse
+            }
+
+            guard 200..<300 ~= httpResponse.statusCode else {
+                throw DailyTarotAPIError.unexpectedStatusCode(httpResponse.statusCode)
+            }
+
+            return try decoder.decode(DailyTarotReading.self, from: data)
+        } catch {
+            if DailyTarotConfiguration.usesDemoDataWhenWebhookFails {
+                return .demo
+            }
+
+            throw error
         }
-
-        guard 200..<300 ~= httpResponse.statusCode else {
-            throw DailyTarotAPIError.unexpectedStatusCode(httpResponse.statusCode)
-        }
-
-        return try decoder.decode(DailyTarotReading.self, from: data)
     }
 
     func fetchReading() async throws -> DailyTarotReading {
@@ -154,18 +191,26 @@ struct DailyTarotClient {
     }
 
     func askQuestion(_ question: String) async throws -> TarotQuestionReading {
-        let request = try makeQuestionRequest(question: question)
-        let (data, response) = try await session.data(for: request)
+        do {
+            let request = try makeQuestionRequest(question: question)
+            let (data, response) = try await session.data(for: request)
 
-        guard let httpResponse = response as? HTTPURLResponse else {
-            throw DailyTarotAPIError.invalidResponse
+            guard let httpResponse = response as? HTTPURLResponse else {
+                throw DailyTarotAPIError.invalidResponse
+            }
+
+            guard 200..<300 ~= httpResponse.statusCode else {
+                throw DailyTarotAPIError.unexpectedStatusCode(httpResponse.statusCode)
+            }
+
+            return try decoder.decode(TarotQuestionReading.self, from: data)
+        } catch {
+            if DailyTarotConfiguration.usesDemoDataWhenWebhookFails {
+                return .demo(question: question)
+            }
+
+            throw error
         }
-
-        guard 200..<300 ~= httpResponse.statusCode else {
-            throw DailyTarotAPIError.unexpectedStatusCode(httpResponse.statusCode)
-        }
-
-        return try decoder.decode(TarotQuestionReading.self, from: data)
     }
 
     func fetchWidgetPayload() async throws -> DailyTarotWidgetPayload {
@@ -222,6 +267,51 @@ struct DailyTarotClient {
 
 private struct AskTarotQuestionRequest: Encodable {
     let question: String
+}
+
+private extension TarotQuestionReading {
+    static func demo(question: String) -> TarotQuestionReading {
+        TarotQuestionReading(
+            question: question,
+            spreadType: "past-present-future",
+            cards: [
+                TarotSpreadCard(
+                    position: "past",
+                    cardName: "The Fool",
+                    cardShort: "ar00",
+                    orientation: "upright",
+                    meaningUp: "A first step, fresh trust, and the courage to begin before every detail is clear.",
+                    meaningRev: "Hesitation, scattered energy, or a leap that needs more grounding.",
+                    cardDescription: "A traveler stands at the edge of a new path, carrying only what is necessary.",
+                    displayMeaning: "A first step, fresh trust, and the courage to begin before every detail is clear.",
+                    imageURL: URL(string: "https://yinglu-altld.github.io/tarot-images/ar00.jpg")!
+                ),
+                TarotSpreadCard(
+                    position: "present",
+                    cardName: "Justice",
+                    cardShort: "ar11",
+                    orientation: "upright",
+                    meaningUp: "Clear judgment, accountability, and choosing the option that can stand up to scrutiny.",
+                    meaningRev: "Avoidance, imbalance, or a decision being shaped by incomplete information.",
+                    cardDescription: "A seated figure holds scales and a sword, weighing truth before action.",
+                    displayMeaning: "Clear judgment, accountability, and choosing the option that can stand up to scrutiny.",
+                    imageURL: URL(string: "https://yinglu-altld.github.io/tarot-images/ar11.jpg")!
+                ),
+                TarotSpreadCard(
+                    position: "future",
+                    cardName: "The Star",
+                    cardShort: "ar17",
+                    orientation: "upright",
+                    meaningUp: "Hope, renewal, and the return of confidence after uncertainty.",
+                    meaningRev: "Temporary discouragement, emotional fatigue, or forgetting the longer vision.",
+                    cardDescription: "A figure pours water beneath a bright star, renewing trust in the path ahead.",
+                    displayMeaning: "Hope, renewal, and the return of confidence after uncertainty.",
+                    imageURL: URL(string: "https://yinglu-altld.github.io/tarot-images/ar17.jpg")!
+                )
+            ],
+            answer: "This demo spread suggests a steady yes, as long as the choice is made with clear boundaries. The past shows you stepping into unfamiliar territory, while the present asks you to evaluate the opportunity honestly instead of rushing for reassurance. The future points toward renewed confidence if you choose the path that feels both hopeful and sustainable."
+        )
+    }
 }
 
 private extension String {

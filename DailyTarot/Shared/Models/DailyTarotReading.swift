@@ -177,6 +177,29 @@ struct DailyTarotReading: Codable, Hashable {
         keywords.joined(separator: " • ")
     }
 
+    static var demo: DailyTarotReading {
+        DailyTarotReading(
+            title: "Daily Tarot",
+            date: currentDateString,
+            cardName: "The Star",
+            cardShort: "ar17",
+            orientation: "upright",
+            meaningUp: "Hope, spiritual clarity, and gentle renewal after a difficult stretch.",
+            meaningRev: "Doubt, emotional fatigue, and feeling briefly disconnected from your own light.",
+            cardDescription: "A figure pours water beneath a radiant star, balancing earth and water in calm devotion.",
+            displayMeaning: "Hope, spiritual clarity, and gentle renewal after a difficult stretch.",
+            shortSummary: "A hopeful day for emotional clarity, gentle confidence, and steady renewal.",
+            keywords: ["Hope", "Clarity", "Renewal"],
+            reading: "Today asks for quiet faith. The Star suggests healing after a demanding stretch, with enough light returning for you to trust your own direction again. In love, speak gently and let sincerity do the work. In career, keep moving toward the longer vision rather than reacting to short-term noise. Small hopeful actions will matter more than dramatic moves.",
+            imageURL: URL(string: "https://yinglu-altld.github.io/tarot-images/ar17.jpg")!,
+            metrics: [
+                DailyTarotMetric(key: "love", label: "Love", score: 78),
+                DailyTarotMetric(key: "career", label: "Career", score: 64),
+                DailyTarotMetric(key: "energy", label: "Energy", score: 83)
+            ]
+        )
+    }
+
     static let placeholder = DailyTarotReading(
         title: "Daily Tarot",
         date: "2026-03-15",
@@ -203,6 +226,13 @@ struct DailyTarotReading: Codable, Hashable {
         DailyTarotMetric(key: "career", label: "Career", score: 50),
         DailyTarotMetric(key: "energy", label: "Energy", score: 50)
     ]
+
+    private static var currentDateString: String {
+        let formatter = DateFormatter()
+        formatter.dateFormat = "yyyy-MM-dd"
+        formatter.locale = Locale(identifier: "en_US_POSIX")
+        return formatter.string(from: Date())
+    }
 
     private static func decodeKeywords(
         from container: KeyedDecodingContainer<CodingKeys>,

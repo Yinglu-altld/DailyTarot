@@ -14,7 +14,7 @@ The project also includes an "Ask the Cards" flow that posts a user question to 
   - `DailyTarotMetricsWidget`: medium widget focused on love, career, and energy scores.
   - `DailyTarotSummaryWidget`: medium widget focused on a short reading summary.
 - Shared model and networking code between the app target and widget target.
-- Placeholder/fallback reading so the UI stays usable when the network or webhook fails.
+- Demo fallback data so the UI stays usable when the network or webhook fails.
 
 ## Repository Structure
 
@@ -54,7 +54,7 @@ The git repository root is the nested `DailyTarot/` project folder. Local Xcode 
 
 - Xcode with SwiftUI and WidgetKit support.
 - iOS target that supports WidgetKit and `containerBackground(for: .widget)`.
-- Network access to the configured n8n webhook endpoints.
+- Network access to the configured n8n webhook endpoints for live data. Demo mode works without n8n.
 - No third-party package dependencies are currently used.
 
 ## Getting Started
@@ -79,8 +79,17 @@ Current configuration keys:
 
 - `dailyWebhookURLString`: GET endpoint for the daily reading.
 - `questionWebhookURLString`: POST endpoint for the question-based spread.
+- `usesDemoDataWhenWebhookFails`: when `true`, the app and widgets use local demo data if the webhook is unavailable.
 
 Important: these URLs are committed in source and visible to anyone with access to the repo. Do not put secrets, private tokens, or admin-only webhook URLs in this file. If the project is distributed publicly, use endpoints that are safe for public clients or move sensitive logic behind a server-side proxy.
+
+## Demo Mode
+
+The project is safe to demo even if the original n8n Cloud trial or workspace is unavailable.
+
+`DailyTarotClient` still tries the configured webhook first. If the request fails, returns a non-2xx response, or returns invalid JSON, the client falls back to local demo data when `usesDemoDataWhenWebhookFails` is enabled. This keeps the app, widgets, and "Ask the Cards" flow stable for portfolio screenshots and screen recordings.
+
+To test only the live webhook path, set `usesDemoDataWhenWebhookFails` to `false` in `DailyTarotConfiguration.swift`.
 
 ## Daily Reading API Contract
 

@@ -28,15 +28,19 @@ DailyTarot/
     ios-widget-setup.md
 ```
 
-## 1. Connect your production webhook
+## 1. Review the webhook configuration
 
-Open `DailyTarot/DailyTarot/Shared/Config/DailyTarotConfiguration.swift` and replace the empty string:
+Open `DailyTarot/DailyTarot/Shared/Config/DailyTarotConfiguration.swift` and review:
 
 ```swift
-static let webhookURLString = "https://YOUR-PRODUCTION-N8N-WEBHOOK-URL"
+static let dailyWebhookURLString = "https://YOUR-PRODUCTION-N8N-WEBHOOK-URL"
+static let questionWebhookURLString = "https://YOUR-PRODUCTION-N8N-WEBHOOK-URL"
+static let usesDemoDataWhenWebhookFails = true
 ```
 
-Use the real HTTPS production webhook URL from n8n. Do not use HTTP unless you also add an App Transport Security exception.
+Use real HTTPS production webhook URLs from n8n when you want live data. Do not use HTTP unless you also add an App Transport Security exception.
+
+For portfolio screenshots and screen recordings, `usesDemoDataWhenWebhookFails` can stay `true`. The app and widgets will try the configured webhook first, then fall back to local demo data if the n8n workspace is unavailable.
 
 ## 2. Create the Widget Extension target in Xcode
 
@@ -85,9 +89,9 @@ Before testing the widget, run the main app once:
 
 1. Select the `DailyTarot` scheme.
 2. Build and run.
-3. Confirm the app can fetch a tarot reading from your webhook.
+3. Confirm the app can show a tarot reading.
 
-If the app fails here, the widget will fail too. Fix the webhook URL or JSON shape first.
+If the webhook is unavailable and demo fallback is enabled, the app should still show demo data. To test the live webhook strictly, set `usesDemoDataWhenWebhookFails` to `false` first.
 
 ## 6. Run and preview the widget
 
@@ -107,9 +111,9 @@ If the app fails here, the widget will fail too. Fix the webhook URL or JSON sha
 ## Likely issues and what they mean
 
 - Widget shows placeholder data:
-  - The webhook URL is missing or invalid.
-  - The network call failed.
-  - The JSON shape no longer matches `DailyTarotReading`.
+  - Demo fallback is disabled and the webhook URL is missing or invalid.
+  - Demo fallback is disabled and the network call failed.
+  - Demo fallback is disabled and the JSON shape no longer matches `DailyTarotReading`.
 
 - Widget text updates but image is blank:
   - The `image_url` is wrong.
