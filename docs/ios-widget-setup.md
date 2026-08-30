@@ -33,14 +33,18 @@ DailyTarot/
 Open `DailyTarot/DailyTarot/Shared/Config/DailyTarotConfiguration.swift` and review:
 
 ```swift
+static let usesLiveWebhooks = false
+static let usesDemoDataWhenWebhookFails = true
+
 static let dailyWebhookURLString = "https://YOUR-PRODUCTION-N8N-WEBHOOK-URL"
 static let questionWebhookURLString = "https://YOUR-PRODUCTION-N8N-WEBHOOK-URL"
-static let usesDemoDataWhenWebhookFails = true
 ```
 
 Use real HTTPS production webhook URLs from n8n when you want live data. Do not use HTTP unless you also add an App Transport Security exception.
 
-For portfolio screenshots and screen recordings, `usesDemoDataWhenWebhookFails` can stay `true`. The app and widgets will try the configured webhook first, then fall back to local demo data if the n8n workspace is unavailable.
+For portfolio screenshots and screen recordings, keep `usesLiveWebhooks` set to `false`. The app and widgets will generate a local daily reading from the current date without calling n8n.
+
+If you reconnect production n8n workflows later, set `usesLiveWebhooks` to `true`. With `usesDemoDataWhenWebhookFails` enabled, the app will try the configured webhook first, then fall back to local demo data if the n8n workspace is unavailable.
 
 ## 2. Create the Widget Extension target in Xcode
 
@@ -91,7 +95,7 @@ Before testing the widget, run the main app once:
 2. Build and run.
 3. Confirm the app can show a tarot reading.
 
-If the webhook is unavailable and demo fallback is enabled, the app should still show demo data. To test the live webhook strictly, set `usesDemoDataWhenWebhookFails` to `false` first.
+If live webhooks are disabled, the app should show the local daily demo reading. To test the live webhook strictly, set `usesLiveWebhooks` to `true` and `usesDemoDataWhenWebhookFails` to `false`.
 
 ## 6. Run and preview the widget
 

@@ -77,9 +77,10 @@ DailyTarot/Shared/Config/DailyTarotConfiguration.swift
 
 Current configuration keys:
 
+- `usesLiveWebhooks`: when `false`, the app skips n8n and uses locally generated demo readings.
 - `dailyWebhookURLString`: GET endpoint for the daily reading.
 - `questionWebhookURLString`: POST endpoint for the question-based spread.
-- `usesDemoDataWhenWebhookFails`: when `true`, the app and widgets use local demo data if the webhook is unavailable.
+- `usesDemoDataWhenWebhookFails`: when `true`, the app and widgets use local demo data if live webhooks are enabled but unavailable.
 
 Important: these URLs are committed in source and visible to anyone with access to the repo. Do not put secrets, private tokens, or admin-only webhook URLs in this file. If the project is distributed publicly, use endpoints that are safe for public clients or move sensitive logic behind a server-side proxy.
 
@@ -87,9 +88,9 @@ Important: these URLs are committed in source and visible to anyone with access 
 
 The project is safe to demo even if the original n8n Cloud trial or workspace is unavailable.
 
-`DailyTarotClient` still tries the configured webhook first. If the request fails, returns a non-2xx response, or returns invalid JSON, the client falls back to local demo data when `usesDemoDataWhenWebhookFails` is enabled. This keeps the app, widgets, and "Ask the Cards" flow stable for portfolio screenshots and screen recordings.
+By default, `usesLiveWebhooks` is `false`, so `DailyTarotClient` skips n8n and generates a local daily reading from the current date. The same date always returns the same card, orientation, summary, and metrics, while the result changes on a different date. This keeps the app, widgets, and "Ask the Cards" flow stable for portfolio screenshots and screen recordings.
 
-To test only the live webhook path, set `usesDemoDataWhenWebhookFails` to `false` in `DailyTarotConfiguration.swift`.
+To test the live webhook path, set `usesLiveWebhooks` to `true` in `DailyTarotConfiguration.swift`. To test only the live path without fallback, also set `usesDemoDataWhenWebhookFails` to `false`.
 
 ## Daily Reading API Contract
 

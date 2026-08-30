@@ -164,6 +164,10 @@ struct DailyTarotClient {
     }
 
     func fetchDailyReading() async throws -> DailyTarotReading {
+        guard DailyTarotConfiguration.usesLiveWebhooks else {
+            return .demo
+        }
+
         do {
             let request = try makeDailyRequest()
             let (data, response) = try await session.data(for: request)
@@ -191,6 +195,10 @@ struct DailyTarotClient {
     }
 
     func askQuestion(_ question: String) async throws -> TarotQuestionReading {
+        guard DailyTarotConfiguration.usesLiveWebhooks else {
+            return .demo(question: question)
+        }
+
         do {
             let request = try makeQuestionRequest(question: question)
             let (data, response) = try await session.data(for: request)

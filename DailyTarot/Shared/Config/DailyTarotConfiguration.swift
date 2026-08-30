@@ -1,9 +1,11 @@
 import Foundation
 
 enum DailyTarotConfiguration {
+    static let usesLiveWebhooks = false
+    static let usesDemoDataWhenWebhookFails = true
+
     static let dailyWebhookURLString = "https://luyinggg.app.n8n.cloud/webhook/daily-tarot"
     static let questionWebhookURLString = "https://luyinggg.app.n8n.cloud/webhook/tarot-question"
-    static let usesDemoDataWhenWebhookFails = true
 
     static var dailyWebhookURL: URL? {
         makeURL(from: dailyWebhookURLString)
