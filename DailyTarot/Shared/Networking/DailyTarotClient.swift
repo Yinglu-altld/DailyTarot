@@ -285,39 +285,39 @@ private extension TarotQuestionReading {
             cards: [
                 TarotSpreadCard(
                     position: "past",
-                    cardName: "The Fool",
-                    cardShort: "ar00",
+                    cardName: "Eight of Pentacles",
+                    cardShort: "pe08",
                     orientation: "upright",
-                    meaningUp: "A first step, fresh trust, and the courage to begin before every detail is clear.",
-                    meaningRev: "Hesitation, scattered energy, or a leap that needs more grounding.",
-                    cardDescription: "A traveler stands at the edge of a new path, carrying only what is necessary.",
-                    displayMeaning: "A first step, fresh trust, and the courage to begin before every detail is clear.",
-                    imageURL: DailyTarotConfiguration.tarotImageURL(for: "ar00")
+                    meaningUp: "Skill-building, steady practice, and the discipline to improve through focused work.",
+                    meaningRev: "Perfectionism, repetitive effort without direction, or losing sight of the larger purpose.",
+                    cardDescription: "A craftsperson works carefully at a bench, repeating the same task until skill becomes visible.",
+                    displayMeaning: "Skill-building, steady practice, and the discipline to improve through focused work.",
+                    imageURL: DailyTarotConfiguration.tarotImageURL(for: "pe08")
                 ),
                 TarotSpreadCard(
                     position: "present",
-                    cardName: "Justice",
-                    cardShort: "ar11",
+                    cardName: "Two of Wands",
+                    cardShort: "wa02",
                     orientation: "upright",
-                    meaningUp: "Clear judgment, accountability, and choosing the option that can stand up to scrutiny.",
-                    meaningRev: "Avoidance, imbalance, or a decision being shaped by incomplete information.",
-                    cardDescription: "A seated figure holds scales and a sword, weighing truth before action.",
-                    displayMeaning: "Clear judgment, accountability, and choosing the option that can stand up to scrutiny.",
-                    imageURL: DailyTarotConfiguration.tarotImageURL(for: "ar11")
+                    meaningUp: "Planning, ambition, and choosing a direction before expanding your reach.",
+                    meaningRev: "Unclear priorities, hesitation, or staying with the familiar because the next step feels too large.",
+                    cardDescription: "A figure holds the world while looking outward, weighing the promise of a wider path.",
+                    displayMeaning: "Planning, ambition, and choosing a direction before expanding your reach.",
+                    imageURL: DailyTarotConfiguration.tarotImageURL(for: "wa02")
                 ),
                 TarotSpreadCard(
                     position: "future",
-                    cardName: "The Star",
-                    cardShort: "ar17",
+                    cardName: "Six of Wands",
+                    cardShort: "wa06",
                     orientation: "upright",
-                    meaningUp: "Hope, renewal, and the return of confidence after uncertainty.",
-                    meaningRev: "Temporary discouragement, emotional fatigue, or forgetting the longer vision.",
-                    cardDescription: "A figure pours water beneath a bright star, renewing trust in the path ahead.",
-                    displayMeaning: "Hope, renewal, and the return of confidence after uncertainty.",
-                    imageURL: DailyTarotConfiguration.tarotImageURL(for: "ar17")
+                    meaningUp: "Recognition, visible progress, and confidence earned through effort.",
+                    meaningRev: "Private wins, fear of being seen, or needing to define success on your own terms.",
+                    cardDescription: "A rider returns with a laurel-topped wand, met by public acknowledgment and forward momentum.",
+                    displayMeaning: "Recognition, visible progress, and confidence earned through effort.",
+                    imageURL: DailyTarotConfiguration.tarotImageURL(for: "wa06")
                 )
             ],
-            answer: "This demo spread suggests a steady yes, as long as the choice is made with clear boundaries. The past shows you stepping into unfamiliar territory, while the present asks you to evaluate the opportunity honestly instead of rushing for reassurance. The future points toward renewed confidence if you choose the path that feels both hopeful and sustainable."
+            answer: "This spread suggests that your career focus should be on turning steady skill into a clearer direction. In the past, the Eight of Pentacles shows that you have already been building your craft through repetition, patience, and practical effort. Even if the progress has felt slow, this card says the foundation is real.\n\nIn the present, the Two of Wands asks you to stop treating every possible path as equal. Your next step is not only to work harder, but to choose where your energy should go. Look at the bigger picture, define what kind of role or project would help you grow, and make a plan that gives your ambition more structure.\n\nIn the future, the Six of Wands points to recognition and visible progress. The work you have been doing can be noticed, but only if you are willing to show it, share it, and stand behind it. Overall, the cards advise you to focus on skill, direction, and visibility."
         )
     }
 }
