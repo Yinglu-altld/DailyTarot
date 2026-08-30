@@ -78,6 +78,7 @@ DailyTarot/Shared/Config/DailyTarotConfiguration.swift
 Current configuration keys:
 
 - `usesLiveWebhooks`: when `false`, the app skips n8n and uses locally generated demo readings.
+- `tarotImageBaseURLString`: base URL for tarot card artwork.
 - `dailyWebhookURLString`: GET endpoint for the daily reading.
 - `questionWebhookURLString`: POST endpoint for the question-based spread.
 - `usesDemoDataWhenWebhookFails`: when `true`, the app and widgets use local demo data if live webhooks are enabled but unavailable.
@@ -91,6 +92,16 @@ The project is safe to demo even if the original n8n Cloud trial or workspace is
 By default, `usesLiveWebhooks` is `false`, so `DailyTarotClient` skips n8n and generates a local daily reading from the current date. The same date always returns the same card, orientation, summary, and metrics, while the result changes on a different date. This keeps the app, widgets, and "Ask the Cards" flow stable for portfolio screenshots and screen recordings.
 
 To test the live webhook path, set `usesLiveWebhooks` to `true` in `DailyTarotConfiguration.swift`. To test only the live path without fallback, also set `usesDemoDataWhenWebhookFails` to `false`.
+
+## Card Artwork
+
+Card artwork is loaded from:
+
+```text
+https://raw.githubusercontent.com/yinglu-dev/tarot-images/main/{card_short}.jpg
+```
+
+The app and widgets use the same `image_url` field. In local demo mode, cards are selected from artwork that exists in the `tarot-images` repository. If live n8n workflows are restored and can return the full 78-card deck, make sure the artwork repository includes every `card_short` image returned by the API.
 
 ## Daily Reading API Contract
 

@@ -217,7 +217,7 @@ struct DailyTarotReading: Codable, Hashable {
         shortSummary: "A hopeful day for emotional clarity, gentle confidence, and steady renewal.",
         keywords: ["Hope", "Clarity", "Renewal"],
         reading: "Today asks for quiet faith. The Star suggests healing after a demanding stretch, with enough light returning for you to trust your own direction again. In love, speak gently and let sincerity do the work. In career, keep moving toward the longer vision rather than reacting to short-term noise. Small hopeful actions will matter more than dramatic moves.",
-        imageURL: URL(string: "https://yinglu-altld.github.io/tarot-images/ar17.jpg")!,
+        imageURL: DailyTarotConfiguration.tarotImageURL(for: "ar17"),
         metrics: [
             DailyTarotMetric(key: "love", label: "Love", score: 78),
             DailyTarotMetric(key: "career", label: "Career", score: 64),
@@ -244,7 +244,7 @@ struct DailyTarotReading: Codable, Hashable {
         let readingRev: String
 
         var imageURL: URL {
-            URL(string: "https://yinglu-altld.github.io/tarot-images/\(shortName).jpg")!
+            DailyTarotConfiguration.tarotImageURL(for: shortName)
         }
 
         func meaning(isReversed: Bool) -> String {
@@ -310,16 +310,16 @@ struct DailyTarotReading: Codable, Hashable {
             readingRev: "Today points to depletion. The Empress reversed suggests that giving more will not help if your own reserves are empty. Return to basics: rest, food, boundaries, and a gentler pace. Growth will resume when care is part of the plan."
         ),
         DemoCard(
-            name: "The Chariot",
-            shortName: "ar07",
-            keywords: ["Direction", "Control", "Momentum"],
-            meaningUp: "Determination, emotional discipline, and moving forward with a clear chosen direction.",
-            meaningRev: "Competing priorities, forced momentum, or trying to steer without alignment.",
-            description: "A determined rider moves forward, holding tension between opposing forces.",
-            summaryUp: "A decisive day for choosing a direction and protecting your momentum.",
-            summaryRev: "A day to realign your priorities before pushing harder.",
-            readingUp: "Today supports a decisive move. The Chariot asks you to choose the direction instead of letting competing demands choose it for you. In love, clarity prevents mixed signals. In career, commit to the next useful milestone and keep your energy organized around it.",
-            readingRev: "Today questions forced progress. The Chariot reversed suggests that motion alone is not the same as direction. If you feel pulled in multiple directions, slow down enough to name the real priority. Alignment will create more progress than pressure."
+            name: "The Lovers",
+            shortName: "ar06",
+            keywords: ["Choice", "Alignment", "Connection"],
+            meaningUp: "Values-led choice, honest connection, and aligning desire with commitment.",
+            meaningRev: "Misalignment, avoidance, or a relationship between choices that needs clearer honesty.",
+            description: "Two figures stand beneath a guiding presence, facing the truth of choice and connection.",
+            summaryUp: "A day for choosing from alignment and letting honesty strengthen connection.",
+            summaryRev: "A day to notice where desire, duty, and truth are not yet saying the same thing.",
+            readingUp: "Today highlights alignment. The Lovers asks you to choose what reflects your values rather than what only solves the moment. In love, honesty creates closeness. In career, pick the path that you can stand behind with both clarity and commitment.",
+            readingRev: "Today asks where something is out of alignment. The Lovers reversed suggests that mixed signals may be coming from an unspoken choice. Slow down, name what matters, and avoid agreeing to a path that your deeper self has not accepted."
         ),
         DemoCard(
             name: "Strength",

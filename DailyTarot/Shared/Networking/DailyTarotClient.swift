@@ -292,7 +292,7 @@ private extension TarotQuestionReading {
                     meaningRev: "Hesitation, scattered energy, or a leap that needs more grounding.",
                     cardDescription: "A traveler stands at the edge of a new path, carrying only what is necessary.",
                     displayMeaning: "A first step, fresh trust, and the courage to begin before every detail is clear.",
-                    imageURL: URL(string: "https://yinglu-altld.github.io/tarot-images/ar00.jpg")!
+                    imageURL: DailyTarotConfiguration.tarotImageURL(for: "ar00")
                 ),
                 TarotSpreadCard(
                     position: "present",
@@ -303,7 +303,7 @@ private extension TarotQuestionReading {
                     meaningRev: "Avoidance, imbalance, or a decision being shaped by incomplete information.",
                     cardDescription: "A seated figure holds scales and a sword, weighing truth before action.",
                     displayMeaning: "Clear judgment, accountability, and choosing the option that can stand up to scrutiny.",
-                    imageURL: URL(string: "https://yinglu-altld.github.io/tarot-images/ar11.jpg")!
+                    imageURL: DailyTarotConfiguration.tarotImageURL(for: "ar11")
                 ),
                 TarotSpreadCard(
                     position: "future",
@@ -314,7 +314,7 @@ private extension TarotQuestionReading {
                     meaningRev: "Temporary discouragement, emotional fatigue, or forgetting the longer vision.",
                     cardDescription: "A figure pours water beneath a bright star, renewing trust in the path ahead.",
                     displayMeaning: "Hope, renewal, and the return of confidence after uncertainty.",
-                    imageURL: URL(string: "https://yinglu-altld.github.io/tarot-images/ar17.jpg")!
+                    imageURL: DailyTarotConfiguration.tarotImageURL(for: "ar17")
                 )
             ],
             answer: "This demo spread suggests a steady yes, as long as the choice is made with clear boundaries. The past shows you stepping into unfamiliar territory, while the present asks you to evaluate the opportunity honestly instead of rushing for reassurance. The future points toward renewed confidence if you choose the path that feels both hopeful and sustainable."

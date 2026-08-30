@@ -36,6 +36,8 @@ Open `DailyTarot/DailyTarot/Shared/Config/DailyTarotConfiguration.swift` and rev
 static let usesLiveWebhooks = false
 static let usesDemoDataWhenWebhookFails = true
 
+static let tarotImageBaseURLString = "https://raw.githubusercontent.com/yinglu-dev/tarot-images/main"
+
 static let dailyWebhookURLString = "https://YOUR-PRODUCTION-N8N-WEBHOOK-URL"
 static let questionWebhookURLString = "https://YOUR-PRODUCTION-N8N-WEBHOOK-URL"
 ```
@@ -43,6 +45,8 @@ static let questionWebhookURLString = "https://YOUR-PRODUCTION-N8N-WEBHOOK-URL"
 Use real HTTPS production webhook URLs from n8n when you want live data. Do not use HTTP unless you also add an App Transport Security exception.
 
 For portfolio screenshots and screen recordings, keep `usesLiveWebhooks` set to `false`. The app and widgets will generate a local daily reading from the current date without calling n8n.
+
+Card artwork is loaded from `tarotImageBaseURLString` by appending `{card_short}.jpg`.
 
 If you reconnect production n8n workflows later, set `usesLiveWebhooks` to `true`. With `usesDemoDataWhenWebhookFails` enabled, the app will try the configured webhook first, then fall back to local demo data if the n8n workspace is unavailable.
 
